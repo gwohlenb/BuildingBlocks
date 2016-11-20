@@ -4,7 +4,7 @@
   "description": "A test program for Express in codeschool",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test.js"
   },
   "author": "Greg W",
   "license": "ISC",
