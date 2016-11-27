@@ -1,6 +1,14 @@
 var request = require('supertest');
 var app = require('./app');
 
+var redis = require('redis');
+var client = redis.createClient();
+
+// Select the test database version (as opposed to 'development')
+// (length is just a quick and dirty way to distinguish them)
+client.select('test'.length); // database 4
+client.flushdb(); // Flush the database to start clean
+
 // A simple supertest/mocha test wrapper (describe-it)
 describe('Requests to the root path', function() {
   it('Returns a 200 status code', function(done) {
@@ -16,13 +24,13 @@ describe('Requests to the root path', function() {
   it('Returns an HTML format', function(done) {
     request(app)
     .get('/')
-    .expect('Content-Type', /html/, done) // check for HTML via a regex
+    .expect('Content-Type', /html/, done); // check for HTML via a regex
   })
 
   it('Returns an index file with cities', function(done) {
     request(app)
     .get('/')
-    .expect(/cities/i, done) // check for generic Cities index file
+    .expect(/cities/i, done); // check for generic Cities index file
   })
 })
 
@@ -36,17 +44,22 @@ describe('Listing cities on /cities', function() {
   it ('Returns JSON format', function(done) {
     request(app)
     .get('/cities')
-    .expect('Content-Type', /json/, done) // check for json via a regex
+    .expect('Content-Type', /json/, done); // check for json via a regex
   })
 
   it ('Returns initial cities', function(done) {
     request(app)
     .get('/cities')
-    .expect(JSON.stringify(['Lotopia', 'Caspiana', 'Indigo']), done)
+    .expect(JSON.stringify([]), done);
   })
 })
 
 describe('Creating new cities', function() {
+
+  before(function() { // what does this do?
+  
+  });
+
   it ('Returns a 201 status code', function(done) {
     request(app)
     .post('/cities')
