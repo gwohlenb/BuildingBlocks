@@ -36,18 +36,22 @@ app.get('/cities', function(req, res) {
 // Create a route for new city creation
 app.post('/cities', urlEncode, function(req, res) {
   var newCity = req.body; // uses the body-parser middleware
+  if (!newCity.name || !newCity.description) { // validate the new city name and description
+    res.sendStatus(400);
+    return false;
+  }
   client.hset('cities', newCity.name, newCity.description, function(err) {
     if(err) throw err;
-    res.status(201).json(newCity.name); // 201 = The request has been fulfilled and has resulted in one or more
-  });					// new resources being created
+    res.status(201).json(newCity.name); // 201 = The request has been fulfilled and has resulted in 
+  });					// one or more new resources being created
 });		                      	
 
 // Create a route for city deletion
 app.delete('/cities/:name', function(req, res) {
   client.hdel('cities', req.params.name, function(err) {
     if (err) throw err;
-    res.sendStatus(204); // 204 = The server has successfully fulfilled the request and that there is no 
-  });			 // additional content to send in the response payload body
+    res.sendStatus(204); // 204 = The server has successfully fulfilled the request and that there is 
+  });			 // no additional content to send in the response payload body
 });
 
 module.exports = app;
