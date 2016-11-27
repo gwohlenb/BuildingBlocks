@@ -44,10 +44,10 @@ app.post('/cities', urlEncode, function(req, res) {
 
 // Create a route for city deletion
 app.delete('/cities/:name', function(req, res) {
-  client.hdel('cities', request.params.name, function(err) {
+  client.hdel('cities', req.params.name, function(err) {
     if (err) throw err;
-    res.sendStatus(204); // 204 = no data to return
-  });
+    res.sendStatus(204); // 204 = The server has successfully fulfilled the request and that there is no 
+  });			 // additional content to send in the response payload body
 });
 
 module.exports = app;

@@ -88,7 +88,8 @@ describe('Deleting cities', function() {
     .end(function(err) {
        if (err) throw err;
        done();
-  });
+    });
+  })
 })
  
 
