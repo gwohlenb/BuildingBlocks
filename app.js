@@ -54,4 +54,12 @@ app.delete('/cities/:name', function(req, res) {
   });			 // no additional content to send in the response payload body
 });
 
+// Create a route for viewing city information (using templates)
+app.get('/cities/:name', function(req, res) {
+  client.hget('cities', req.params.name, function(err, description) {
+    res.render('show.ejs', { city: { name: req.params.name, description: description }
+    });	       // where show.ejs is the template and city is the data we want to pass              
+  });	       // through to the template
+});
+
 module.exports = app;
