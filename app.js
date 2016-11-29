@@ -20,7 +20,7 @@ if (process.env.REDISTOGO_URL) {
 } else {
   var client = redis.createClient();
   // Select the development database version (as opposed to 'test')
-  // (length is just a quick and dirty way to distinguish them)
+  // (length is just a quick and dirty way to distinguish them) 
   client.select((process.env.NODE_ENV || 'development').length);
 }
 
@@ -58,7 +58,7 @@ app.delete('/cities/:name', function(req, res) {
 app.get('/cities/:name', function(req, res) {
   client.hget('cities', req.params.name, function(err, description) {
     res.render('show.ejs', { city: { name: req.params.name, description: description }
-    });	       // where show.ejs is the template and city is the data we want to pass              
+    });	       // where show.ejs is the template and the city object is the data we want to pass              
   });	       // through to the template
 });
 

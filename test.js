@@ -7,7 +7,7 @@ var client = redis.createClient();
 // Select the test database version (as opposed to 'development')
 // (length is just a quick and dirty way to distinguish them)
 client.select('test'.length); // database 4
-client.flushdb(); // Flush the database to start clean
+client.flushdb(); // Flush the database to start each test run clean
 
 // A simple supertest/mocha test wrapper (describe-it)
 describe('Requests to the root path', function() {
